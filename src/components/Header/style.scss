@@ -1,0 +1,73 @@
+.header-container {
+    &-account {
+        background-color: #231f20;
+        color: white;
+
+        &-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.4rem;
+            padding: 0.2rem 2rem;
+
+            span {
+            }
+
+            a {
+                color: white;
+            }
+        }
+    }
+
+    &-webjump {
+        &-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: fit-content;
+            padding: 1rem 2rem;
+
+            div {
+                display: flex;
+                align-items: center;
+            }
+
+            img {
+                width: 11.75rem;
+            }
+
+            input {
+                height: 2.75rem;
+                width: 25rem;
+            }
+
+            button {
+                color: white;
+                background-color: #cb0d1f;
+                height: 2.75rem;
+                width: 6.75rem;
+            }
+        }
+    }
+
+    &-nav {
+        background-color: #cb0d1f;
+        color: white;
+
+        &-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+
+            h4 {
+                font-weight: 800;
+                width: 10rem;
+                padding: 1rem 2rem;
+            }
+        }
+    }
+}
