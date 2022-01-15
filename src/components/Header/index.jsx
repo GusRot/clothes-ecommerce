@@ -8,9 +8,9 @@ export default function Header() {
         <div className="header-container">
             <div className="header-container-account">
                 <div className="header-container-account-content">
-                    <a href="#">Acesse sua conta</a>
+                    <a href="https://github.com/GusRot">Acesse sua conta</a>
                     <span>ou</span>
-                    <a href="#">Cadastre-se</a>
+                    <a href="https://github.com/GusRot">Cadastre-se</a>
                 </div>
             </div>
 
