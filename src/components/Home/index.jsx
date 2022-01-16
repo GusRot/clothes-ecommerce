@@ -1,17 +1,24 @@
 import React from "react";
 import "./style.scss";
 import { items } from "../../services/list";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     return (
         <div className="home-container">
             <aside className="home-container-nav">
                 <ul>
-                    <li>Página Inicial</li>
+                    <Link to="/home">
+                        <li>Página Inicial</li>
+                    </Link>
                     {items.items.map((item) => (
-                        <li>{item.name}</li>
+                        <Link to={`/${item.path}`}>
+                            <li>{item.name}</li>
+                        </Link>
                     ))}
-                    <li>Contato</li>
+                    <Link to="/contato">
+                        <li>Contato</li>
+                    </Link>
                 </ul>
             </aside>
 
