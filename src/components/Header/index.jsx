@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./style.scss";
 import logo from "../../assets/webjump-logo.png";
-import { items } from "../../services/list";
+import { ListContext } from "../../ListContext";
+import { Link } from "react-router-dom";
 
 export default function Header() {
+    const { items } = useContext(ListContext);
+
     return (
         <div className="header-container">
             <div className="header-container-account">
                 <div className="header-container-account-content">
-                    <a href="https://github.com/GusRot">Acesse sua conta</a>
+                    <Link to="/home">Acesse sua conta</Link>
                     <span>ou</span>
-                    <a href="https://github.com/GusRot">Cadastre-se</a>
+                    <Link to="/home">Cadastre-se</Link>
                 </div>
             </div>
 
@@ -26,11 +29,17 @@ export default function Header() {
 
             <div className="header-container-nav">
                 <div className="header-container-nav-content">
-                    <h4>Página Inicial</h4>
-                    {items.items.map((item) => (
-                        <h4>{item.name}</h4>
+                    <Link to="/home">
+                        <h4>Página Inicial</h4>
+                    </Link>
+                    {items.map((item) => (
+                        <Link key={item.path} to={`${item.path}/1`}>
+                            <h4>{item.name}</h4>
+                        </Link>
                     ))}
-                    <h4>Contato</h4>
+                    <Link to="/contato">
+                        <h4>Contato</h4>
+                    </Link>
                 </div>
             </div>
         </div>

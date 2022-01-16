@@ -4,16 +4,17 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./components/Router";
+import { ListContextProvider } from "./ListContext";
 
 function App() {
     return (
-        <>
-            <Header />
-            <BrowserRouter>
+        <BrowserRouter>
+            <ListContextProvider>
+                <Header />
                 <Router />
-            </BrowserRouter>
-            <Footer />
-        </>
+                <Footer />
+            </ListContextProvider>
+        </BrowserRouter>
     );
 }
 

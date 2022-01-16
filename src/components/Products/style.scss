@@ -34,6 +34,11 @@
         padding: 0 1rem 1rem;
         height: fit-content;
 
+        a {
+            text-decoration: none;
+            color: #626262;
+        }
+
         h3 {
             text-transform: uppercase;
             font-size: 1.5rem;
@@ -134,6 +139,7 @@
                 line-height: 1.125rem;
                 height: 1.5rem;
                 text-transform: uppercase;
+                text-align: center;
             }
 
             h5 {
@@ -184,6 +190,12 @@
                 height: 13.45rem;
                 object-fit: scale-down;
             }
+
+            .active-price {
+                color: #808185;
+                font-size: 0.92rem;
+                text-decoration: line-through;
+            }
         }
 
         &-pagination {
@@ -192,24 +204,31 @@
             justify-content: center;
             gap: 0.6rem;
 
-            span {
-                color: #626262;
-                font-weight: 500;
+            a {
+                text-decoration: none;
                 cursor: pointer;
 
-                &:hover {
-                    color: rgba(203, 13, 31, 0.85);
-                }
-            }
-            .active-page {
-                color: #cb0d1f;
-                font-weight: 600;
-            }
+                span {
+                    color: #626262;
+                    font-weight: 500;
 
-            span:first-child,
-            span:last-child {
-                color: blue;
-                font-weight: 700;
+                    &:hover {
+                        color: rgba(203, 13, 31, 0.85);
+                    }
+                }
+
+                .active-page {
+                    color: #cb0d1f;
+                    font-weight: 600;
+                }
+
+                &:first-child,
+                &:last-child {
+                    span {
+                        color: blue;
+                        font-weight: 700;
+                    }
+                }
             }
         }
     }

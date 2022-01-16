@@ -9,12 +9,16 @@
             display: flex;
             justify-content: flex-end;
             gap: 0.4rem;
-            padding: 0.2rem 5rem;
+            padding: 0.3rem 5rem;
 
             a,
             span {
                 color: white;
                 font-size: 0.875rem;
+
+                &:hover {
+                    color: #00a8a9;
+                }
             }
         }
     }
@@ -74,6 +78,11 @@
             justify-content: flex-start;
             align-items: center;
             gap: 1rem;
+
+            a {
+                text-decoration: none;
+                color: white;
+            }
 
             h4 {
                 font-weight: 800;
