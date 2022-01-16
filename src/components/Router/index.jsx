@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ListContext } from "../../ListContext";
+import Contacts from "../Contact";
 import Home from "../Home";
 import Page404 from "../Page404";
 import Products from "../Products";
@@ -19,6 +20,7 @@ export default function Router() {
                     element={<Products title={item.name} items={item.id} />}
                 />
             ))}
+            <Route path="/contato" element={<Contacts />} />
             <Route path="*" element={<Page404 />} />
         </Routes>
     );

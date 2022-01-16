@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function PathHistory({ category }) {
     return (
         <>
-            <Link className="link" to="home">
+            <Link className="link" to="/home">
                 Página Inicial
             </Link>
             <span>{">"}</span>

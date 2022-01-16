@@ -1,20 +1,17 @@
 import React from "react";
 
-export default function ProductsHeader({ title }) {
+export default function ProductsHeader({ title, order }) {
     return (
         <>
             <h2>{title}</h2>
             <div className="horizontal-line"></div>
             <div className="products-container-products-order">
                 <div>
-                    <span>"a"</span>
-                    <span>a</span>
-                </div>
-                <div>
                     <span>Ordenar por</span>
-                    <select>
+                    <select onChange={(e) => order(e)}>
                         <option value=""> </option>
-                        <option value="preço">preço</option>
+                        <option value="price">preço</option>
+                        <option value="alfa">alfabetica</option>
                     </select>
                 </div>
             </div>

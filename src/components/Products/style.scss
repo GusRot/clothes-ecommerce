@@ -80,10 +80,43 @@
 
         .colors {
             display: flex;
-            gap: 0.2rem;
+            flex-wrap: wrap;
+            gap: 0.1rem;
 
             li {
                 list-style-type: none;
+                width: 2rem;
+                height: 1rem;
+                transition: 200ms;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+
+            .Laranja {
+                background-color: orange;
+            }
+            .Preta {
+                background-color: black;
+            }
+            .Amarela {
+                background-color: yellow;
+            }
+            .Rosa {
+                background-color: pink;
+            }
+            .Azul {
+                background-color: blue;
+            }
+            .Cinza {
+                background-color: grey;
+            }
+            .Bege {
+                background-color: #f3f3c5;
+            }
+            .color-selected {
+                width: 3rem;
             }
         }
     }
@@ -106,7 +139,7 @@
 
         &-order {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             padding: 0.4rem 0;
 
             div {
@@ -127,12 +160,7 @@
             margin-top: 1.5rem;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr;
             gap: 20px 35px;
-            grid-template-areas:
-                ". . . ."
-                ". . . ."
-                ". . . .";
 
             h6 {
                 color: #626262;

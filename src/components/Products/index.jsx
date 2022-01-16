@@ -9,12 +9,19 @@ import Pagination from "./Pagination";
 import { useParams } from "react-router-dom";
 
 export default function Products({ items, title }) {
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState({});
     const [newCategories, setNewCategories] = useState([]);
-    const [colorFilter, setColorFilter] = useState("");
+    const [newFilter, setNewFilter] = useState("");
+    const [newOrder, setNewOrder] = useState("");
+    const [availableColorFilters, setAvailableColorFilters] = useState([]);
+    const [availableGenderFilters, setAvailableGenderFilters] = useState([]);
     const { page } = useParams();
 
     useEffect(() => {
+        setAvailableGenderFilters([]);
+        setAvailableColorFilters([]);
+        setNewFilter("");
+        setNewOrder("");
         api.get(`categories/${items}`).then((response) =>
             setCategories(response.data)
         );
@@ -22,23 +29,48 @@ export default function Products({ items, title }) {
         setNewCategories(categories.items);
     }, [items]);
 
-    function filterCategories(filter) {
-        return filter === categories.items.sku;
+    function handleFilter(filter) {
+        if (String(filter) === String(newFilter)) {
+            setNewFilter("");
+        } else {
+            setNewFilter(filter);
+        }
     }
 
-    function handleColorFilter(filter) {
-        setColorFilter(filter);
+    function handleOrder(e) {
+        setNewOrder(e.target.value);
     }
 
     useEffect(() => {
-        if (colorFilter) {
-            setNewCategories(
-                categories.items.filter(filterCategories(colorFilter))
-            );
+        if (newFilter) {
+            setNewCategories(categories.items.filter(filterFunction));
+
+            function filterFunction(value) {
+                return (
+                    (value.filter[0].color || value.filter[0].gender) ===
+                    newFilter
+                );
+            }
         } else {
             setNewCategories(categories.items);
         }
-    }, [colorFilter, categories]);
+
+        if (Object.values(categories).length) {
+            if (categories.items[0].filter[0].color) {
+                const arr = [];
+                categories.items.map((item) => arr.push(item.filter[0].color));
+                const uniq = [...new Set(arr)];
+                setAvailableColorFilters([...uniq]);
+            }
+
+            if (categories.items[0].filter[0].gender) {
+                const arr = [];
+                categories.items.map((item) => arr.push(item.filter[0].gender));
+                const uniq = [...new Set(arr)];
+                setAvailableGenderFilters([...uniq]);
+            }
+        }
+    }, [newFilter, categories]);
 
     return (
         <div className="products">
@@ -50,16 +82,18 @@ export default function Products({ items, title }) {
                 <div className="products-container-filter">
                     <Filter
                         filters={categories.filters}
-                        filter={colorFilter}
-                        functionFilter={handleColorFilter}
+                        filter={newFilter}
+                        availableFilters={{
+                            color: availableColorFilters,
+                            gender: availableGenderFilters,
+                        }}
+                        functionFilter={handleFilter}
                     />
                 </div>
 
                 <div className="products-container-products">
-                    <ProductsHeader title={title} />
+                    <ProductsHeader order={handleOrder} title={title} />
                     <div className="products-container-products-grid">
-                        <Card products={newCategories} />
-                        <Card products={newCategories} />
                         <Card products={newCategories} />
                     </div>
                     <div className="products-container-products-pagination">

@@ -11,6 +11,12 @@
         margin: 1rem 0 0;
         width: 16rem;
         padding: 1rem;
+        margin-bottom: 2.5rem;
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
 
         li {
             margin: 0 0 0.5rem 1rem;
@@ -39,6 +45,7 @@
         }
 
         &-content {
+            margin-bottom: 2.5rem;
             h1 {
                 font-size: 1.625rem;
                 font-weight: 500;

@@ -12,7 +12,7 @@ export default function Home() {
                         <li>Página Inicial</li>
                     </Link>
                     {items.items.map((item) => (
-                        <Link to={`/${item.path}`}>
+                        <Link to={`/${item.path}/1`}>
                             <li>{item.name}</li>
                         </Link>
                     ))}
