@@ -1,4 +1,3 @@
-import React from "react";
 import "./style.scss";
 import { items } from "../../services/list";
 import { Link } from "react-router-dom";
@@ -12,7 +11,7 @@ export default function Home() {
                         <li>Página Inicial</li>
                     </Link>
                     {items.items.map((item) => (
-                        <Link to={`/${item.path}/1`}>
+                        <Link key={`/${item.path}/1`} to={`/${item.path}/1`}>
                             <li>{item.name}</li>
                         </Link>
                     ))}

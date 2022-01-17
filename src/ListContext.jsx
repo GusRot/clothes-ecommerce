@@ -5,6 +5,8 @@ export const ListContext = createContext([]);
 
 export function ListContextProvider({ children }) {
     const [items, setItems] = useState([]);
+    const [search, setSearch] = useState("");
+    const [disabledButton, setDisabledButton] = useState(true);
 
     useEffect(() => {
         api.get(`categories/list`).then((response) => {
@@ -13,7 +15,15 @@ export function ListContextProvider({ children }) {
     }, []);
 
     return (
-        <ListContext.Provider value={{ items }}>
+        <ListContext.Provider
+            value={{
+                items,
+                search,
+                setSearch,
+                disabledButton,
+                setDisabledButton,
+            }}
+        >
             {children}
         </ListContext.Provider>
     );

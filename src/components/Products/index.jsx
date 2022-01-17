@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import "./style.scss";
 import PathHistory from "./PathHistory";
@@ -7,6 +7,7 @@ import ProductsHeader from "./ProductsHeader";
 import Card from "./Card";
 import Pagination from "./Pagination";
 import { useParams } from "react-router-dom";
+import { ListContext } from "../../ListContext";
 
 export default function Products({ items, title }) {
     const [categories, setCategories] = useState({});
@@ -16,12 +17,16 @@ export default function Products({ items, title }) {
     const [availableColorFilters, setAvailableColorFilters] = useState([]);
     const [availableGenderFilters, setAvailableGenderFilters] = useState([]);
     const { page } = useParams();
+    const { search, setSearch, setDisabledButton } = useContext(ListContext);
 
     useEffect(() => {
         setAvailableGenderFilters([]);
         setAvailableColorFilters([]);
         setNewFilter("");
         setNewOrder("");
+        setSearch("");
+        setDisabledButton(false);
+
         api.get(`categories/${items}`).then((response) =>
             setCategories(response.data)
         );
@@ -42,8 +47,22 @@ export default function Products({ items, title }) {
     }
 
     useEffect(() => {
-        if (newFilter) {
-            setNewCategories(categories.items.filter(filterFunction));
+        if (newFilter || newOrder) {
+            if (newOrder && newFilter) {
+                setNewCategories(
+                    categories.items
+                        .filter(filterFunction)
+                        .sort(sortPriceFunction)
+                );
+            } else if (newFilter) {
+                setNewCategories(categories.items.filter(filterFunction));
+            } else if (newOrder) {
+                if (newOrder === "price") {
+                    setNewCategories(categories.items.sort(sortPriceFunction));
+                } else {
+                    setNewCategories(categories.items.sort(sortAlpaFunction));
+                }
+            }
 
             function filterFunction(value) {
                 return (
@@ -51,8 +70,22 @@ export default function Products({ items, title }) {
                     newFilter
                 );
             }
+            function sortPriceFunction(a, b) {
+                if (Number(a.price) < Number(b.price)) return -1;
+            }
+            function sortAlpaFunction(a, b) {
+                if (a.name < b.name) return -1;
+            }
         } else {
             setNewCategories(categories.items);
+        }
+
+        if (search) {
+            setNewCategories(newCategories.filter(filterSearchFunction));
+            function filterSearchFunction(value) {
+                console.log(value.name);
+                return value.name.toUpperCase().includes(search.toUpperCase());
+            }
         }
 
         if (Object.values(categories).length) {
@@ -70,7 +103,7 @@ export default function Products({ items, title }) {
                 setAvailableGenderFilters([...uniq]);
             }
         }
-    }, [newFilter, categories]);
+    }, [newFilter, categories, newOrder, search]);
 
     return (
         <div className="products">
@@ -92,7 +125,11 @@ export default function Products({ items, title }) {
                 </div>
 
                 <div className="products-container-products">
-                    <ProductsHeader order={handleOrder} title={title} />
+                    <ProductsHeader
+                        value={newOrder}
+                        order={handleOrder}
+                        title={title}
+                    />
                     <div className="products-container-products-grid">
                         <Card products={newCategories} />
                     </div>

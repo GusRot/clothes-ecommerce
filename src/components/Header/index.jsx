@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./style.scss";
 import logo from "../../assets/webjump-logo.png";
 import { ListContext } from "../../ListContext";
 import { Link } from "react-router-dom";
 
 export default function Header() {
-    const { items } = useContext(ListContext);
+    const { items, setSearch, disabledButton, setDisabledButton } =
+        useContext(ListContext);
+    const [searchText, setSearchText] = useState("");
 
     return (
         <div className="header-container">
@@ -21,15 +23,34 @@ export default function Header() {
                 <div className="header-container-webjump-content">
                     <img src={logo} alt="logo" />
                     <div>
-                        <input type="text" />
-                        <button>Buscar</button>
+                        <input
+                            className={disabledButton ? "input-disabled" : ""}
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
+                            id="search"
+                            type="text"
+                        />
+                        <button
+                            disabled={disabledButton}
+                            onClick={(e) => {
+                                setSearch(searchText);
+                                setSearchText("");
+                            }}
+                        >
+                            Buscar
+                        </button>
                     </div>
                 </div>
             </div>
 
             <div className="header-container-nav">
                 <div className="header-container-nav-content">
-                    <Link to="/home">
+                    <Link
+                        onClick={() => {
+                            setDisabledButton(true);
+                        }}
+                        to="/home"
+                    >
                         <h4>Página Inicial</h4>
                     </Link>
                     {items.map((item) => (
@@ -37,7 +58,12 @@ export default function Header() {
                             <h4>{item.name}</h4>
                         </Link>
                     ))}
-                    <Link to="/contato">
+                    <Link
+                        onClick={() => {
+                            setDisabledButton(true);
+                        }}
+                        to="/contato"
+                    >
                         <h4>Contato</h4>
                     </Link>
                 </div>
