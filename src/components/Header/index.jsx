@@ -3,6 +3,9 @@ import "./style.scss";
 import logo from "../../assets/webjump-logo.png";
 import { ListContext } from "../../ListContext";
 import { Link } from "react-router-dom";
+import { CgDetailsMore } from "react-icons/cg";
+import { FaShoppingCart } from "react-icons/fa";
+import NavBar from "./NavBar";
 
 export default function Header() {
     const { items, setSearch, disabledButton, setDisabledButton } =
@@ -21,7 +24,11 @@ export default function Header() {
 
             <div className="header-container-webjump">
                 <div className="header-container-webjump-content">
+                    <Link to="/menu">
+                        <CgDetailsMore className="react-icons" />
+                    </Link>
                     <img src={logo} alt="logo" />
+                    <FaShoppingCart className="react-icons" />
                     <div>
                         <input
                             className={disabledButton ? "input-disabled" : ""}
@@ -43,31 +50,11 @@ export default function Header() {
                 </div>
             </div>
 
-            <div className="header-container-nav">
-                <div className="header-container-nav-content">
-                    <Link
-                        onClick={() => {
-                            setDisabledButton(true);
-                        }}
-                        to="/home"
-                    >
-                        <h4>Página Inicial</h4>
-                    </Link>
-                    {items.map((item) => (
-                        <Link key={item.path} to={`${item.path}/1`}>
-                            <h4>{item.name}</h4>
-                        </Link>
-                    ))}
-                    <Link
-                        onClick={() => {
-                            setDisabledButton(true);
-                        }}
-                        to="/contato"
-                    >
-                        <h4>Contato</h4>
-                    </Link>
-                </div>
-            </div>
+            <NavBar
+                mobile={false}
+                items={items}
+                setDisabledButton={setDisabledButton}
+            />
         </div>
     );
 }
