@@ -17,7 +17,13 @@ export default function Router() {
                 <Route
                     key={item.name}
                     path={`/${item.path}/:page`}
-                    element={<Products title={item.name} items={item.id} />}
+                    element={
+                        <Products
+                            path={item.path}
+                            title={item.name}
+                            items={item.id}
+                        />
+                    }
                 />
             ))}
             <Route path="/contato" element={<Contacts />} />

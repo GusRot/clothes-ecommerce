@@ -7,6 +7,7 @@ export default function Filter({
     functionFilter,
     availableFilters,
     filter,
+    path,
 }) {
     const { items } = useContext(ListContext);
 
@@ -17,7 +18,11 @@ export default function Filter({
 
             <ul>
                 {items.map((item) => (
-                    <Link key={item.id + 111} to={`/${item.path}/1`}>
+                    <Link
+                        className={path === item.path ? "category-active" : ""}
+                        key={item.id + 111}
+                        to={`/${item.path}/1`}
+                    >
                         <li>
                             <span>{item.name}</span>
                         </li>
@@ -50,6 +55,9 @@ export default function Filter({
                     <ul>
                         {availableFilters.gender.map((gender, index) => (
                             <li
+                                className={
+                                    gender === filter ? "gender-active" : ""
+                                }
                                 key={`${gender}${index}`}
                                 onClick={() => functionFilter(gender)}
                             >

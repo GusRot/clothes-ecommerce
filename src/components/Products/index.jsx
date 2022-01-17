@@ -9,7 +9,7 @@ import Pagination from "./Pagination";
 import { useParams } from "react-router-dom";
 import { ListContext } from "../../ListContext";
 
-export default function Products({ items, title }) {
+export default function Products({ items, title, path }) {
     const [categories, setCategories] = useState({});
     const [newCategories, setNewCategories] = useState([]);
     const [newFilter, setNewFilter] = useState("");
@@ -20,12 +20,7 @@ export default function Products({ items, title }) {
     const { search, setSearch, setDisabledButton } = useContext(ListContext);
 
     useEffect(() => {
-        setAvailableGenderFilters([]);
-        setAvailableColorFilters([]);
-        setNewFilter("");
-        setNewOrder("");
-        setSearch("");
-        setDisabledButton(false);
+        resetParams();
 
         api.get(`categories/${items}`).then((response) =>
             setCategories(response.data)
@@ -34,6 +29,23 @@ export default function Products({ items, title }) {
         setNewCategories(categories.items);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [items]);
+
+    useEffect(() => {
+        if (newFilter || newOrder) {
+            checkForActiveFilters();
+        } else {
+            setNewCategories(categories.items);
+        }
+
+        if (search) {
+            checkForSearchFilter();
+        }
+
+        if (Object.values(categories).length) {
+            checkForFilter();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [newFilter, categories, newOrder, search]);
 
     function handleFilter(filter) {
         if (String(filter) === String(newFilter)) {
@@ -47,65 +59,76 @@ export default function Products({ items, title }) {
         setNewOrder(e.target.value);
     }
 
-    useEffect(() => {
-        if (newFilter || newOrder) {
-            if (newOrder && newFilter) {
+    function resetParams() {
+        setAvailableGenderFilters([]);
+        setAvailableColorFilters([]);
+        setNewFilter("");
+        setNewOrder("");
+        setSearch("");
+        setDisabledButton(false);
+    }
+
+    function checkForActiveFilters() {
+        if (newOrder && newFilter) {
+            if (newOrder === "price") {
                 setNewCategories(
                     categories.items
                         .filter(filterFunction)
                         .sort(sortPriceFunction)
                 );
-            } else if (newFilter) {
-                setNewCategories(categories.items.filter(filterFunction));
-            } else if (newOrder) {
-                if (newOrder === "price") {
-                    setNewCategories(categories.items.sort(sortPriceFunction));
-                } else {
-                    setNewCategories(categories.items.sort(sortAlpaFunction));
-                }
-            }
-
-            function filterFunction(value) {
-                return (
-                    (value.filter[0].color || value.filter[0].gender) ===
-                    newFilter
+            } else {
+                setNewCategories(
+                    categories.items
+                        .filter(filterFunction)
+                        .sort(sortAlphaFunction)
                 );
             }
-            function sortPriceFunction(a, b) {
-                if (Number(a.price) < Number(b.price)) return -1;
-            }
-            function sortAlpaFunction(a, b) {
-                if (a.name < b.name) return -1;
-            }
-        } else {
-            setNewCategories(categories.items);
-        }
-
-        if (search) {
-            setNewCategories(newCategories.filter(filterSearchFunction));
-            function filterSearchFunction(value) {
-                console.log(value.name);
-                return value.name.toUpperCase().includes(search.toUpperCase());
+        } else if (newFilter) {
+            setNewCategories(categories.items.filter(filterFunction));
+        } else if (newOrder) {
+            if (newOrder === "price") {
+                setNewCategories(categories.items.sort(sortPriceFunction));
+            } else {
+                setNewCategories(categories.items.sort(sortAlphaFunction));
             }
         }
 
-        if (Object.values(categories).length) {
-            if (categories.items[0].filter[0].color) {
-                const arr = [];
-                categories.items.map((item) => arr.push(item.filter[0].color));
-                const uniq = [...new Set(arr)];
-                setAvailableColorFilters([...uniq]);
-            }
-
-            if (categories.items[0].filter[0].gender) {
-                const arr = [];
-                categories.items.map((item) => arr.push(item.filter[0].gender));
-                const uniq = [...new Set(arr)];
-                setAvailableGenderFilters([...uniq]);
-            }
+        function filterFunction(value) {
+            return (
+                (value.filter[0].color || value.filter[0].gender) === newFilter
+            );
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [newFilter, categories, newOrder, search]);
+        function sortPriceFunction(a, b) {
+            if (Number(a.price) < Number(b.price)) return -1;
+        }
+        function sortAlphaFunction(a, b) {
+            if (a.name < b.name) return -1;
+        }
+    }
+
+    function checkForSearchFilter() {
+        setNewCategories(newCategories.filter(filterSearchFunction));
+        function filterSearchFunction(value) {
+            console.log(value.name);
+            return value.name.toUpperCase().includes(search.toUpperCase());
+        }
+    }
+
+    function checkForFilter() {
+        if (categories.items[0].filter[0].color) {
+            const arr = [];
+            categories.items.map((item) => arr.push(item.filter[0].color));
+            const uniq = [...new Set(arr)];
+            setAvailableColorFilters([...uniq]);
+        }
+
+        if (categories.items[0].filter[0].gender) {
+            const arr = [];
+            categories.items.map((item) => arr.push(item.filter[0].gender));
+            const uniq = [...new Set(arr)];
+            setAvailableGenderFilters([...uniq]);
+        }
+    }
 
     return (
         <div className="products">
@@ -123,6 +146,7 @@ export default function Products({ items, title }) {
                             gender: availableGenderFilters,
                         }}
                         functionFilter={handleFilter}
+                        path={path}
                     />
                 </div>
 
@@ -136,7 +160,7 @@ export default function Products({ items, title }) {
                         <Card products={newCategories} />
                     </div>
                     <div className="products-container-products-pagination">
-                        <Pagination activePage={page} />
+                        <Pagination path={path} activePage={page} />
                     </div>
                 </div>
             </div>

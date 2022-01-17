@@ -11,7 +11,11 @@ export default function Card({ products = [] }) {
                     </div>
                     <h6>{product.name}</h6>
                     <div>
-                        <h5 className="active-price">
+                        <h5
+                            className={
+                                product.specialPrice ? "active-price" : ""
+                            }
+                        >
                             {product.specialPrice
                                 ? `R$
                             ${String(product.price.toFixed(2)).replace(
