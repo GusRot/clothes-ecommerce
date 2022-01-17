@@ -32,6 +32,7 @@ export default function Products({ items, title }) {
         );
 
         setNewCategories(categories.items);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [items]);
 
     function handleFilter(filter) {
@@ -103,6 +104,7 @@ export default function Products({ items, title }) {
                 setAvailableGenderFilters([...uniq]);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newFilter, categories, newOrder, search]);
 
     return (
