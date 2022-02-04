@@ -5,7 +5,7 @@ Projeto desenvolvido em React
 <img alt="Repository size" src="https://img.shields.io/github/repo-size/GusRot/clothes-ecommerce">
 </a>
 <a href="https://xd.adobe.com/view/bcf73053-f8e6-431c-9eb0-bf24304f6fff-e9a4/grid">
-  <img alt="FIGMA" src="https://img.shields.io/badge/Acessar%20Layout%20-Figma-%2304D361">
+  <img alt="AdobeXD" src="https://img.shields.io/badge/Acessar%20Layout%20-AdobeXD-%2304D361">
 </a>
 <a href="#">
 <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/GusRot/clothes-ecommerce?color=%2304D361">
@@ -21,18 +21,18 @@ Projeto desenvolvido em React
 
 No desenvolvimento, foram utilizados diversos ferramentais técnicos: Function Components como padrão, Context API para controlar variáveis globais, requisições utilizando uma API simulada com o MirageJS. Tudo com o pré-processados Sass devidamente responsivo aos diversos dispositivos móveis.
 
-# 📝 Projeto
+## 📝 Projeto
 
 Projeto e-commerce, simulando uma aplicação real com diferentes categorias de roupas, com a possibilidade da utilização de filtros para facilitar sua busca ao produto ideal.
 O projeto foi um desafio proposto pela Webjump (https://webjump.com.br/). O objeto para as requisições e o layout foram criados e disponibilizados pelos mesmos.
 
-[Acesse aqui] (https://clothes-ecommerce.vercel.app) para visualizar o build do projeto
+## Build
 
-[Acesse aqui] (https://xd.adobe.com/view/bcf73053-f8e6-431c-9eb0-bf24304f6fff-e9a4/grid) para visualizar o layout do projeto
+[Acesse aqui] (https://clothes-ecommerce.vercel.app) para visualizar o build do projeto
 
 ## Video Preview (Youtube)
 
-[![Watch the video](https://img.youtube.com/vi/So8afPRb9TU/maxresdefault.jpg)](https://youtu.be/So8afPRb9TU)
+[![Watch the video](https://img.youtube.com/vi/3FnHoyU9QpY/maxresdefault.jpg)](https://youtu.be/3FnHoyU9QpY)
 
 Você também pode rodar na sua máquina:
 
