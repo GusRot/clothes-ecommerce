@@ -4,11 +4,17 @@ Projeto desenvolvido em React
 <a href="#">
 <img alt="Repository size" src="https://img.shields.io/github/repo-size/GusRot/clothes-ecommerce">
 </a>
-<a href="https://xd.adobe.com/view/bcf73053-f8e6-431c-9eb0-bf24304f6fff-e9a4/grid">
+<a href="https://xd.adobe.com/view/bcf73053-f8e6-431c-9eb0-bf24304f6fff-e9a4/grid" target="blank">
   <img alt="AdobeXD" src="https://img.shields.io/badge/Acessar%20Layout%20-AdobeXD-%2304D361">
 </a>
 <a href="#">
 <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/GusRot/clothes-ecommerce?color=%2304D361">
+</a>
+<a href="#">
+<img alt="Wakatime" src="https://wakatime.com/badge/user/04f1420e-9d57-410a-bdc7-d768fb237a52/project/a6940806-8835-48c5-9ffb-c654164c4463.svg">
+</a>
+<a href="https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt" target="blank">
+<img alt="LicenseMIT" src="https://badgen.net/github/license/micromatch/micromatch">
 </a>
 </div>
 

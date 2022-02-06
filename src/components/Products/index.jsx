@@ -109,7 +109,6 @@ export default function Products({ items, title, path }) {
     function checkForSearchFilter() {
         setNewCategories(newCategories.filter(filterSearchFunction));
         function filterSearchFunction(value) {
-            console.log(value.name);
             return value.name.toUpperCase().includes(search.toUpperCase());
         }
     }

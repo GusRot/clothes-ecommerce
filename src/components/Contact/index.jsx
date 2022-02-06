@@ -52,7 +52,6 @@ export default function Contacts() {
             className="container-forms"
             onSubmit={(event) => {
                 event.preventDefault();
-                console.log([name, lastName, email, CPF, text]);
             }}
         >
             <p>Nos diga o motivo do contato que responderemos ao seu e-mail</p>
